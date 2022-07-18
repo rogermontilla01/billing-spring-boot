@@ -3,7 +3,6 @@ package com.billing.billing_system.service;
 import com.billing.billing_system.model.ClientEntity;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ClientService {
     ClientEntity findOneByDni(Long dni);
