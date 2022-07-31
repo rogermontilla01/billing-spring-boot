@@ -16,13 +16,16 @@ import javax.persistence.*;
 @Table(name = "CLIENT")
 public class ClientEntity {
     @Column(name = "NAME")
-    private String name;
+    private String firstname;
 
     @Column(name = "LASTNAME")
     private String lastname;
 
     @Column(name = "DNI", unique = true)
     private Long dni;
+
+    @Column(name = "EMAIL")
+    private String email;
 
     @Id
     @Hidden

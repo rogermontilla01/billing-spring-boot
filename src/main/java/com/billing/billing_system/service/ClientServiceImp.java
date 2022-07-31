@@ -1,6 +1,10 @@
 package com.billing.billing_system.service;
 
+import com.billing.billing_system.builder.ClientBuilder;
+import com.billing.billing_system.handle.ApiException;
 import com.billing.billing_system.model.ClientEntity;
+import com.billing.billing_system.model.ClientRequest;
+import com.billing.billing_system.model.ClientResponse;
 import com.billing.billing_system.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,6 +16,7 @@ import java.util.List;
 public class ClientServiceImp implements ClientService {
 
     private final ClientRepository clientRepository;
+    private final ClientBuilder clientBuilder;
 
     @Override
     public ClientEntity findOneByDni(Long dni) {
@@ -34,8 +39,19 @@ public class ClientServiceImp implements ClientService {
     }
 
     @Override
-    public ClientEntity createClient(ClientEntity newClient) {
-        return clientRepository.save(newClient);
+    public ClientResponse createClient(ClientRequest newClient) throws ApiException {
+        try {
+            if (clientRepository.existsByDni(newClient.getDni())) {
+                throw new ApiException(String.format("Client with dni %s already exist...", newClient.getDni()));
+            }
+
+            ClientEntity clientEntity = clientRepository.save(clientBuilder.requestToEntity(newClient));
+
+            return clientBuilder.entityToResponse(clientEntity);
+        } catch (Exception error) {
+            throw new ApiException(error.getMessage());
+        }
+
     }
 
     @Override

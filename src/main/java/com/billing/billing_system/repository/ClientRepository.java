@@ -15,4 +15,6 @@ public interface ClientRepository extends JpaRepository<ClientEntity, Long> {
     List<ClientEntity> findByLastname(String lastname);
 
     void deleteById(Long id);
+
+    Boolean existsByDni(Long dni);
 }
