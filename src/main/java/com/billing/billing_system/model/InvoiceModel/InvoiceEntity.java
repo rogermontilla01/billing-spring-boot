@@ -1,5 +1,7 @@
-package com.billing.billing_system.model;
+package com.billing.billing_system.model.InvoiceModel;
 
+import com.billing.billing_system.model.ClientModel.ClientEntity;
+import com.billing.billing_system.model.SaleModel.SaleEntity;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

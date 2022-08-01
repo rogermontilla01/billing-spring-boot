@@ -1,4 +1,4 @@
-package com.billing.billing_system.model;
+package com.billing.billing_system.model.ClientModel;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;

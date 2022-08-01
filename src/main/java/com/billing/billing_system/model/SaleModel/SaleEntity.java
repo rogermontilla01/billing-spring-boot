@@ -1,5 +1,7 @@
-package com.billing.billing_system.model;
+package com.billing.billing_system.model.SaleModel;
 
+import com.billing.billing_system.model.InvoiceModel.InvoiceEntity;
+import com.billing.billing_system.model.ProductModel.ProductEntity;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +21,7 @@ public class SaleEntity {
 
     private Integer quantity;
 
-    private String Description;
+    private String description;
 
     private BigDecimal price;
 

@@ -1,7 +1,9 @@
 package com.billing.billing_system.controller;
 
-import com.billing.billing_system.model.SaleEntity;
-import com.billing.billing_system.service.SaleService;
+import com.billing.billing_system.handle.ApiException;
+import com.billing.billing_system.model.SaleModel.SaleRequestDto;
+import com.billing.billing_system.model.SaleModel.SaleResponseDto;
+import com.billing.billing_system.service.SaleService.SaleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,22 +18,22 @@ public class SaleController {
     private final SaleService saleService;
 
     @PostMapping("create")
-    public ResponseEntity<SaleEntity> createSale(@RequestBody SaleEntity newSale) {
+    public ResponseEntity<SaleResponseDto> createSale(@RequestBody SaleRequestDto newSale) throws ApiException  {
         return ResponseEntity.ok(saleService.createSale(newSale));
     }
 
     @GetMapping("all")
-    public ResponseEntity<List<SaleEntity>> getAll() {
+    public ResponseEntity<List<SaleResponseDto>> getAll() throws ApiException {
         return ResponseEntity.ok(saleService.findAll());
     }
 
     @GetMapping("get-by-id/{id}")
-    public ResponseEntity<SaleEntity> getById(@PathVariable Long id) {
+    public ResponseEntity<SaleResponseDto> getById(@PathVariable Long id) throws ApiException {
         return ResponseEntity.ok(saleService.findOneById(id));
     }
 
     @DeleteMapping("delete-by-id/{id}")
-    public void deleteSale(@PathVariable Long id) {
+    public void deleteSale(@PathVariable Long id) throws ApiException {
         saleService.deleteById(id);
     }
 }

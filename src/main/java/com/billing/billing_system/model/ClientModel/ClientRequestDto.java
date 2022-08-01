@@ -1,4 +1,4 @@
-package com.billing.billing_system.model;
+package com.billing.billing_system.model.ClientModel;
 
 
 import lombok.Data;
@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Validated
-public class ClientRequest {
+public class ClientRequestDto {
     @NotNull(message = "name is required")
     @NotBlank(message = "name can't be empty")
     private String firstname;

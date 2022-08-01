@@ -1,4 +1,4 @@
-package com.billing.billing_system.model;
+package com.billing.billing_system.model.ClientModel;
 
 import lombok.Builder;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ClientResponse {
+public class ClientResponseDto {
 
     private String firstname;
 

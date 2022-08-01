@@ -1,6 +1,6 @@
 package com.billing.billing_system.repository;
 
-import com.billing.billing_system.model.ClientEntity;
+import com.billing.billing_system.model.ClientModel.ClientEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

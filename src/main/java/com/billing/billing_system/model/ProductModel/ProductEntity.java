@@ -1,4 +1,4 @@
-package com.billing.billing_system.model;
+package com.billing.billing_system.model.ProductModel;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ public class ProductEntity {
     private String productName;
 
     @Column(name = "QUANTITY")
-    private String quantity;
+    private Long quantity;
 
     @Column(name = "PRICE")
     private BigDecimal price;
@@ -28,7 +28,7 @@ public class ProductEntity {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "CODE")
+    @Column(name = "CODE", unique = true)
     private Integer code;
 
     @Id
