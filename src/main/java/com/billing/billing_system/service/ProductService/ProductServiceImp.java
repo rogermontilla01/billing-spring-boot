@@ -43,6 +43,15 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
+    public ProductEntity findProductByCode(Integer code) throws ApiException {
+        try {
+            return productRepository.findOneByCode(code);
+        } catch (Exception error) {
+            throw new ApiException(error.getMessage());
+        }
+    }
+
+    @Override
     public List<ProductResponseDto> findAll() throws ApiException {
         try {
             return productBuilder.entityToResponseList(productRepository.findAll());

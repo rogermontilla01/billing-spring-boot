@@ -17,23 +17,23 @@ import java.math.BigDecimal;
 @Table(name = "PRODUCT")
 public class ProductEntity {
     @Column(name = "PRODUCT_NAME")
-    private String productName;
+    public String productName;
 
     @Column(name = "QUANTITY")
-    private Long quantity;
+    public Long quantity;
 
     @Column(name = "PRICE")
-    private BigDecimal price;
+    public BigDecimal price;
 
     @Column(name = "DESCRIPTION")
-    private String description;
+    public String description;
 
     @Column(name = "CODE", unique = true)
-    private Integer code;
+    public Integer code;
 
     @Id
     @Hidden
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
-    private Long id;
+    public Long id;
 }

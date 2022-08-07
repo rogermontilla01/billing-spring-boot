@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,8 +20,6 @@ import java.util.Set;
 @Entity
 @Table(name = "INVOICE")
 public class InvoiceEntity {
-    @Column(name = "QUANTITY")
-    private Integer quantity;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATE")
@@ -30,12 +28,12 @@ public class InvoiceEntity {
     @Column(name = "TOTAL")
     private BigDecimal total;
 
-    @ManyToOne
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "CLIENT_ID")
-    private ClientEntity clientId;
+    private ClientEntity client;
 
-    @OneToMany(mappedBy = "invoiceId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<SaleEntity> sales;
+    @OneToMany(mappedBy = "invoiceId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<SaleEntity> sales;
 
     @Id
     @Hidden

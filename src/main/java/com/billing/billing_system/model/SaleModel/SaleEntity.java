@@ -25,7 +25,7 @@ public class SaleEntity {
 
     private BigDecimal price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "INVOICE_ID")
     private InvoiceEntity invoiceId;
 

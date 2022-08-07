@@ -28,6 +28,15 @@ public class ClientServiceImp implements ClientService {
     }
 
     @Override
+    public ClientEntity findOneClientById(Long id) throws ApiException {
+        try {
+            return clientRepository.findOneById(id);
+        } catch (Exception error) {
+            throw new ApiException(error.getMessage());
+        }
+    }
+
+    @Override
     public List<ClientResponseDto> findByLastname(String lastname) throws ApiException {
         try {
             return clientBuilder.entityToResponseList(clientRepository.findByLastname(lastname));

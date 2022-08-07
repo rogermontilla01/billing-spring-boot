@@ -1,5 +1,6 @@
 package com.billing.billing_system.model.ClientModel;
 
+import com.billing.billing_system.model.InvoiceModel.InvoiceEntity;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +16,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "CLIENT")
 public class ClientEntity {
-    @Column(name = "NAME")
+    @Column(name = "FIRSTNAME")
     private String firstname;
 
     @Column(name = "LASTNAME")
@@ -26,6 +27,9 @@ public class ClientEntity {
 
     @Column(name = "EMAIL")
     private String email;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "client")
+    private InvoiceEntity invoice;
 
     @Id
     @Hidden
