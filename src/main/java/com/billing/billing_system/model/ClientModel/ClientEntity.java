@@ -1,6 +1,7 @@
 package com.billing.billing_system.model.ClientModel;
 
 import com.billing.billing_system.model.InvoiceModel.InvoiceEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,8 +30,9 @@ public class ClientEntity {
     @Column(name = "EMAIL")
     private String email;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "client")
-    private InvoiceEntity invoice;
+    @JsonIgnore
+    @OneToMany(mappedBy = "client")
+    private List<InvoiceEntity> invoice;
 
     @Id
     @Hidden

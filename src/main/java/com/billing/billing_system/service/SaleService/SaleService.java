@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface SaleService {
 
-    SaleEntity createSale(ProductInvoiceDto productInvoice) throws ApiException;
+    SaleEntity createSaleEntity(ProductInvoiceDto productInvoice) throws ApiException;
 
     SaleResponseDto findOneById(Long id) throws ApiException;
 

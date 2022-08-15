@@ -1,5 +1,6 @@
 package com.billing.billing_system.model.SaleModel;
 
+import com.billing.billing_system.model.InvoiceModel.InvoiceEntity;
 import com.billing.billing_system.model.ProductModel.ProductEntity;
 import lombok.Data;
 
@@ -14,4 +15,6 @@ public class CreateSaleDto {
     public BigDecimal price;
 
     public ProductEntity productId;
+
+    public InvoiceEntity invoice;
 }

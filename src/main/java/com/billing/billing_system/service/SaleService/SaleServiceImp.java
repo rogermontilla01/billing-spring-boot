@@ -4,7 +4,6 @@ import com.billing.billing_system.builder.SaleBuilder;
 import com.billing.billing_system.handle.ApiException;
 import com.billing.billing_system.model.ProductModel.ProductEntity;
 import com.billing.billing_system.model.ProductModel.ProductInvoiceDto;
-import com.billing.billing_system.model.SaleModel.CreateSaleDto;
 import com.billing.billing_system.model.SaleModel.SaleEntity;
 import com.billing.billing_system.model.SaleModel.SaleResponseDto;
 import com.billing.billing_system.repository.SaleRepository;
@@ -23,16 +22,22 @@ public class SaleServiceImp implements SaleService {
     private final SaleBuilder saleBuilder;
 
     @Override
-    public SaleEntity createSale(ProductInvoiceDto productInvoice) throws ApiException {
-        try {
-            CreateSaleDto createSale = new CreateSaleDto();
-            ProductEntity product = productService.findProductByCode(productInvoice.getCode());
-            createSale.setQuantity(productInvoice.getQuantity());
-            createSale.setDescription(product.getDescription());
-            createSale.setPrice(product.getPrice());
-            createSale.setProductId(product);
+    public SaleEntity createSaleEntity(ProductInvoiceDto productInvoice) throws ApiException {
 
-            return saleBuilder.createSaleToEntity(createSale);
+        try {
+            SaleEntity createSale = new SaleEntity();
+            ProductEntity product = productService.findProductByCode(productInvoice.getCode());
+
+            if(product.getQuantity() >= productInvoice.getQuantity()) {
+                createSale.setQuantity(productInvoice.getQuantity());
+                createSale.setDescription(product.getDescription());
+                createSale.setPrice(product.getPrice());
+                createSale.setProductId(product);
+
+                return createSale;
+            } else {
+                throw new ApiException("Not enough products...");
+            }
 
         } catch (Exception error) {
             throw new ApiException(error.getMessage());

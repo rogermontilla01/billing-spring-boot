@@ -2,6 +2,7 @@ package com.billing.billing_system.model.InvoiceModel;
 
 import com.billing.billing_system.model.ClientModel.ClientEntity;
 import com.billing.billing_system.model.SaleModel.SaleEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,16 +30,16 @@ public class InvoiceEntity {
     @Column(name = "TOTAL")
     private BigDecimal total;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "CLIENT_ID")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CLIENT")
     private ClientEntity client;
 
-    @OneToMany(mappedBy = "invoiceId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<SaleEntity> sales;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<SaleEntity> sales = new ArrayList<>();
 
     @Id
     @Hidden
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 }

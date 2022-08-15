@@ -42,6 +42,7 @@ public class SaleBuilder extends EntityTransform<SaleResponseDto, SaleRequestDto
                 .description(sale.getDescription())
                 .price(sale.getPrice())
                 .productId(sale.getProductId())
+                .invoiceId(sale.getInvoice())
                 .build();
     }
 }

@@ -20,7 +20,7 @@ public class ProductEntity {
     public String productName;
 
     @Column(name = "QUANTITY")
-    public Long quantity;
+    public Integer quantity;
 
     @Column(name = "PRICE")
     public BigDecimal price;

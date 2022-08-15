@@ -3,6 +3,7 @@ package com.billing.billing_system.service.ProductService;
 import com.billing.billing_system.builder.ProductBuilder;
 import com.billing.billing_system.handle.ApiException;
 import com.billing.billing_system.model.ProductModel.ProductEntity;
+import com.billing.billing_system.model.ProductModel.ProductInvoiceDto;
 import com.billing.billing_system.model.ProductModel.ProductRequestDto;
 import com.billing.billing_system.model.ProductModel.ProductResponseDto;
 import com.billing.billing_system.repository.ProductRepository;
@@ -79,6 +80,17 @@ public class ProductServiceImp implements ProductService {
             throw new ApiException(error.getMessage());
         }
 
+    }
+
+    @Override
+    public void updateProductQuantity(ProductInvoiceDto productInvoice) throws ApiException {
+        try {
+            ProductEntity product = productRepository.findOneByCode(productInvoice.getCode());
+            product.setQuantity(product.getQuantity() - productInvoice.getQuantity());
+            productRepository.save(product);
+        } catch (Exception error) {
+            throw new ApiException(error.getMessage());
+        }
     }
 
     @Override

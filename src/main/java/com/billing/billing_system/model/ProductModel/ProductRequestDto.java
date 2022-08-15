@@ -15,7 +15,7 @@ public class ProductRequestDto {
     private String productName;
 
     @NotNull(message = "quantity is required")
-    private Long quantity;
+    private Integer quantity;
 
     @NotNull(message = "price is required")
     private BigDecimal price;

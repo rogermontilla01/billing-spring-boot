@@ -25,8 +25,8 @@ public class SaleEntity {
 
     private BigDecimal price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "INVOICE_ID")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = InvoiceEntity.class)
+    @JoinColumn(name = "INVOICE_ID", nullable = false, referencedColumnName = "id")
     private InvoiceEntity invoiceId;
 
     @ManyToOne
@@ -36,6 +36,6 @@ public class SaleEntity {
     @Id
     @Hidden
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 }
