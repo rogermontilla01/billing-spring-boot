@@ -2,6 +2,7 @@ package com.billing.billing_system.model.SaleModel;
 
 import com.billing.billing_system.model.InvoiceModel.InvoiceEntity;
 import com.billing.billing_system.model.ProductModel.ProductEntity;
+import com.billing.billing_system.model.ProductModel.ProductResponseDto;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,9 +15,11 @@ public class SaleResponseDto {
 
     private String description;
 
+    private String productName;
+
+    private Integer productCode;
+
     private BigDecimal price;
 
-    private InvoiceEntity invoiceId;
-
-    private ProductEntity productId;
+    private Long invoiceId;
 }

@@ -46,7 +46,12 @@ public class ProductServiceImp implements ProductService {
     @Override
     public ProductEntity findProductByCode(Integer code) throws ApiException {
         try {
-            return productRepository.findOneByCode(code);
+            ProductEntity productEntity = productRepository.findOneByCode(code);
+            if (productEntity == null) {
+                String message = String.format("Product with code: %s does not exist...", code);
+                throw new ApiException(message);
+            }
+            return productEntity;
         } catch (Exception error) {
             throw new ApiException(error.getMessage());
         }

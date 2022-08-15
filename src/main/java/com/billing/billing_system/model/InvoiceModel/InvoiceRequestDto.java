@@ -11,8 +11,8 @@ import java.util.Map;
 @Data
 @Validated
 public class InvoiceRequestDto {
-    @NotNull(message = "clientId is required")
-    private Long clientId;
+    @NotNull(message = "clientDni is required")
+    private Long clientDni;
 
     @NotNull(message = "productList is required")
     private List<ProductInvoiceDto> product;

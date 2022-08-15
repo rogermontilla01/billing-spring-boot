@@ -10,15 +10,13 @@ import com.billing.billing_system.model.ProductModel.ProductInvoiceDto;
 import com.billing.billing_system.model.SaleModel.SaleEntity;
 import com.billing.billing_system.repository.InvoiceRepository;
 import com.billing.billing_system.service.ClientService.ClientService;
-import com.billing.billing_system.service.Date.DateServiceImp;
+import com.billing.billing_system.service.DateService.DateService;
 import com.billing.billing_system.service.ProductService.ProductService;
 import com.billing.billing_system.service.SaleService.SaleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,19 +30,12 @@ public class InvoiceServiceImp implements InvoiceService {
     private final ClientService clientService;
     private final InvoiceBuilder invoiceBuilder;
     private final ProductService productService;
-    private final RestTemplate restTemplate;
-
-    //TODO: Validate if client exist
-    //TODO: Improve Date Service
-    //TODO: Improve ApiExceptions
+    private final DateService dateService;
 
     @Override
     public InvoiceResponseDto createInvoice(InvoiceRequestDto invoice) throws ApiException {
         try {
-            DateServiceImp worldClock = this.restTemplate.getForObject("http://worldclockapi.com/api/json/utc/now", DateServiceImp.class);
-            assert worldClock != null;
-            String currentDateTime = worldClock.getCurrentDateTime();
-            Date dateRemote = new SimpleDateFormat("yyyy-MM-dd'T'mm:ss'Z'").parse(currentDateTime);
+            Date date = dateService.getDate();
 
             InvoiceEntity createInvoice = new InvoiceEntity();
             List<SaleEntity> saleList = getSaleEntities(invoice);
@@ -54,18 +45,17 @@ public class InvoiceServiceImp implements InvoiceService {
                 saleEntity.setInvoiceId(createInvoice);
             }
 
-            ClientEntity client = clientService.findOneClientById(invoice.getClientId());
+            ClientEntity client = clientService.findOneClientByDni(invoice.getClientDni());
 
             BigDecimal total = getTotalInvoice(saleList);
 
-            createInvoice.setDate(dateRemote);
+            createInvoice.setDate(date);
             createInvoice.setTotal(total);
             createInvoice.setClient(client);
             createInvoice.setSales(saleList);
 
             InvoiceEntity invoiceSaved = invoiceRepository.save(createInvoice);
-            InvoiceEntity invoiceReturn = invoiceRepository.findById(invoiceSaved.getId()).orElse(null);
-            return invoiceBuilder.entityToResponse(invoiceReturn);
+            return invoiceBuilder.entityToResponse(invoiceSaved);
         } catch (Exception error) {
             throw new ApiException(error.getMessage());
         }

@@ -37,6 +37,19 @@ public class ClientServiceImp implements ClientService {
     }
 
     @Override
+    public ClientEntity findOneClientByDni(Long dni) throws ApiException {
+        try {
+            ClientEntity client = clientRepository.findOneByDni(dni);
+            if (client == null) {
+                throw new Exception("Client does not exist...");
+            }
+            return client;
+        } catch (Exception error) {
+            throw new ApiException(error.getMessage());
+        }
+    }
+
+    @Override
     public List<ClientResponseDto> findByLastname(String lastname) throws ApiException {
         try {
             return clientBuilder.entityToResponseList(clientRepository.findByLastname(lastname));

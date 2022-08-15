@@ -12,6 +12,8 @@ public interface ClientService {
 
     ClientEntity findOneClientById(Long id) throws ApiException;
 
+    ClientEntity findOneClientByDni(Long dni) throws ApiException;
+
     List<ClientResponseDto> findByLastname(String lastname) throws ApiException;
 
     ClientResponseDto findOneByClientId(Long id) throws ApiException;
